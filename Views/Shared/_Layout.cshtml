@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/script.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <span>
+                            <a href="/ShoppingCart/ShowCart">
+                            <img src="@Url.Content("~/Content/images/cart2.png")" style="height:30px;width:30px;margin-top:10px;" />
+                            </a>
+                        </span>
+                        @Html.Action("Bagcart", "ShoppingCart")
+                    </li>
+                    <li><a href="/LoginUser/RegisterUser">
+                            <img src="@Url.Content("~/Content/images/user.png")" style="height:30px;width:30px;margin-top:10px;" />
+                            <span class="glyphicon glyphicon-user"></span>Sign up
+                        </a></li>
+                    <li><a href="/LoginUser/Index">
+                        <img src="@Url.Content("~/Content/images/login.png")" style="height:30px;width:30px;margin-top:10px;" />
+                        <span class="glyphicon glyphicon-user"></span>Login
+                        </a></li>
+                    <li><a href="@Url.Action("LogOutUser","LoginUser")"><span class="glyphicon glyphicon-user"></span>LogOut</a></li>
+                    <li class="format-hello">
+                        @if (Session["NameUser"] == null)
+            {
+                <span>Hello</span>
+            }
+                        else
+            {
+                <span> <text> Hello</text> @Session["NameUser"]</span>
+            }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid body-content" >
+        <div class="row">
+            <div class="col-md-2">
+                <ul style="text-decoration:none;background-color:greenyellow;margin-top:20px;list-style-type:none;padding:10px;">
+                    <li><a href="/OrderDetail/GroupByTop5" style="color:white" ; id="animation-top5">Top 5 sản phẩm bán chạy nhất</a></li>
+
+                </ul>
+                <ul>
+                    <ul style="list-style-type:none">
+                        <li>
+                            <a href="/Product/SearchOption" class="btn btn-default">Search theo giá</a>
+                        </li>
+                        <li>
+                            <a href="/Product/SearchNameOption" class="btn btn-default">Search theo ten</a>
+                        </li>
+                    </ul>
+                </ul>
+                @{ Html.RenderAction("CategoryPartial", "Categories");}
+            </div>
+            <div class="col-md-10" id="div-content">
+                @RenderBody()
+            </div>
+        </div>
+     </div>
+        <div id="div-footer">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </div>
+<style>
+    #div-footer {
+        position: fixed;
+        text-align: center;
+        bottom: 0;
+        left: 0;
+
+        padding-top: 15px;
+        height: 50px;
+        width: 100%;
+        background-color: aquamarine;
+    }
+    li.format-hello {
+        padding-top:15px;
+        color: white;
+    }
+    #animation-top5:hover {
+        color: white;
+        text-shadow: 1px 1px 2px gray, 0 0 25px red, 0 0 5px red;
+    }
+</style>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
